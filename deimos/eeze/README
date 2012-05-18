@@ -1,0 +1,81 @@
+Eeze Device Library
+Eeze
+version 1.1.0
+author Mike Blumenkrantz (zmike/discomfitor) <mike@@zentific.com>
+date 2010-2011
+
+What is Eeze?
+
+Eeze is a library for manipulating devices through udev with a simple and fast
+api. It interfaces directly with libudev, avoiding such middleman daemons as
+udisks/upower or hal, to immediately gather device information the instant it
+becomes known to the system.  This can be used to determine such things as:
+        * If a cdrom has a disk inserted
+        * The temperature of a cpu core
+        * The remaining power left in a battery
+        * The current power consumption of various parts
+        * Monitor in realtime the status of peripheral devices
+
+Each of the above examples can be performed by using only a single eeze
+function, as one of the primary focuses of the library is to reduce the
+complexity of managing devices.
+
+UDEV functions
+        * watch Functions that watch for events
+        * syspath Functions that accept a device /sys/ path
+        * find Functions which find types of devices
+
+These are the device subsystems of udev:
+        * ac97
+        * acpi
+        * bdi
+        * block
+        * bsg
+        * dmi
+        * graphics
+        * hid
+        * hwmon
+        * i2c
+        * input
+        * mem
+        * misc
+        * net
+        * pci
+        * pci_bus
+        * pci_express
+        * platform
+        * pnp
+        * rtc
+        * scsi
+        * scsi_device
+        * scsi_disk
+        * scsi_generic
+        * scsi_host
+        * serio
+        * sound
+        * thermal
+        * tty
+        * usb
+        * usb_device
+        * vc
+        * vtconsole
+
+These are the devtypes of udev.
+        * atapi
+        * audio
+        * block
+        * cd
+        * char
+        * disk
+        * floppy
+        * generic
+        * hid
+        * hub
+        * media
+        * optical
+        * printer
+        * rbc
+        * scsi
+        * storage
+        * tape
+        * video

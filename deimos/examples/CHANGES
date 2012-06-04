@@ -6,4 +6,4 @@ A list of the changes and the reasons for the change is below:
     You can pass if the string of any function you wish to call.
     e.g     mixin(ELM_MAIN!()); //default sub is: return elm_main(int argc, char** argv) 
             mixin(ELM_MAIN!("custom_thing(); return elm_main(argc, argv); "));
-    REAON:  It seemed like a very useful thing to have, plus I try to keep things the same.
+    REAON:  It seemed like a very useful thing to have, plus I try to keep things reasonably the same.

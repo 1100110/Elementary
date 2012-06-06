@@ -7,21 +7,22 @@
 #make gdc
 ##############################################################################	
 
-DC     :=dmd
-DFLAGS :=-O -wi -inline -release
-INCLUDE:=-I../elementary -I../eina -I../eina/eina -I../evas 	\
-	 	 -I../ecore -I../edje
+DC:=dmd
+DFLAGS:=-wi 
 
-LIBS   :=-lelementary -leina -lecore -levas -ledje 	\
+INCLUDE=-I../elementary -I../eina -I../eina/eina -I../evas 	\
+	 	-I../ecore -I../edje
+
+LIBS:=-lelementary -leina -lecore -levas -ledje 	\
 	     -lm -lpthread -lrt
-OUT    :=-of
-SOURCES =first second clock_example
+OUT:=-of
+SOURCES=first second clock_example button_example_00 table_example_01
 
 
 ## WARNING I don't know how portable this is, it grabs the number of cores.
 ## Feel free to override with make -er JOPTS="1" 
 JOPTS:=$(shell awk '/^processor/ { N++} END { print N }' /proc/cpuinfo)
-MAKE  =make -er -j$(JOPTS: %=%)	#Stupid whitespace...
+MAKE=make -er -j$(JOPTS: %=%)	#Stupid whitespace...
 ################################################################################
 #	'all' assumes that flags conform to dmd. (dmd -inline -O...)
 #	It also assumes that you have DC and DFLAGS predefined.

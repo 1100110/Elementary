@@ -1,8 +1,8 @@
 import std.string;
 import Elementary;
+import Evas;
 
-
-extern (C) void on_done(void* data, Evas_Object* obj, void* event_info)
+void on_done(void* data, Evas_Object* obj, void* event_info)
 {
    // quit the mainloop (elm_run function will return)
    elm_exit();
@@ -16,8 +16,9 @@ int elm_main(int argc, char** argv)
     win = elm_win_util_standard_add("Hello", "Hello");
 
     // when the user clicks "close" on a window there is a request to delete
-    evas_object_smart_callback_add(win, toStringz("delete,request"),
-                            cast(Evas_Smart_Cb)&on_done, cast(void*)null);
+    //TODO fix this, fix the shit...
+    evas_object_smart_callback_add(win, "delete,request",
+                            cast(Evas_Smart_Cb)&on_done, null);
 
     // add a box object - default is vertical. a box holds children in a row,
     // either horizontally or vertically. nothing more.
@@ -35,7 +36,7 @@ int elm_main(int argc, char** argv)
     lab = elm_label_add(win);
 
     // set default text of the label
-    elm_object_part_text_set(lab, null, toStringz("Hello out there world!"));
+    elm_object_text_set(lab, "Hello out there world!");
 
     // pack the label at the end of the box
     elm_box_pack_end(box, lab);
@@ -45,15 +46,15 @@ int elm_main(int argc, char** argv)
     btn = elm_button_add(win);
 
     // set default text of button to "OK"
-    elm_object_part_text_set(btn, null, toStringz("OK"));
+    elm_object_text_set(btn, "OK");
 
     // pack the button at the end of the box
     elm_box_pack_end(box, btn);
     evas_object_show(btn);
 
     // call on_done when button is clicked
-    evas_object_smart_callback_add(btn, toStringz("clicked"),
-                            cast(Evas_Smart_Cb)&on_done, cast(void*)null);
+    evas_object_smart_callback_add(btn, "clicked",
+                            cast(Evas_Smart_Cb)&on_done, null);
 
     // now we are done, show the window
     evas_object_show(win);

@@ -4,8 +4,10 @@ import Eina;
 import Evas;
 import Edje;
 import elm_general;
+//TODO
+import std.string;
 
-extern (C)  {
+extern (C):
 
 /**
  * Set a label of an object
@@ -21,8 +23,12 @@ extern (C)  {
 void elm_object_part_text_set(Evas_Object* obj, const char* part,
                                 const char* label);
 
-//#define elm_object_text_set(obj, label) elm_object_part_text_set((obj), NULL, (label))
-//TODO simple, just use a template.
+// Needed a Wrapper anyways...
+void elm_object_text_set(E:Evas_Object*, S:string)(E obj, S label)
+{   return elm_object_part_text_set(obj, cast(char*)null, toStringz(label));   }
+
+
+
 /**
  * Get a label of an object
  *
@@ -36,7 +42,8 @@ void elm_object_part_text_set(Evas_Object* obj, const char* part,
  */
 char* elm_object_part_text_get(const Evas_Object* obj, const char* part);
 
-//#define elm_object_text_get(obj) elm_object_part_text_get((obj), NULL)
+void elm_object_text_get(E:Evas_Object*)(in E obj)
+{   return elm_object_part_text_get(obj, cast(char*)null);  }
 //TODO
 /**
  * Set a content of an object
@@ -53,10 +60,10 @@ char* elm_object_part_text_get(const Evas_Object* obj, const char* part);
  *
  * @ingroup General
  */
-void elm_object_part_content_set(Evas_Object* obj, const char* part,
-                                    Evas_Object* content);
+void elm_object_part_content_set(Evas_Object* obj, const char* part, Evas_Object* content);
 
-//#define elm_object_content_set(obj, content) elm_object_part_content_set((obj), NULL, (content))
+void elm_object_content_set(E:Evas_Object*)(E obj, E content)
+{   return elm_object_part_content_set(obj, cast(char*)null, content);  }
 
 /**
  * Get a content of an object
@@ -69,10 +76,10 @@ void elm_object_part_content_set(Evas_Object* obj, const char* part,
  *
  * @ingroup General
  */
-Evas_Object* elm_object_part_content_get(const Evas_Object* obj,
-                                                const char* part);
+Evas_Object* elm_object_part_content_get(const Evas_Object* obj, const char* part);
 
-//#define elm_object_content_get(obj) elm_object_part_content_get((obj), NULL)
+Evas_Object* elm_object_content_get(E:Evas_Object*)(E obj)
+{   return elm_object_part_content_get(obj, cast(char*)null);   }
 
 /**
  * Unset a content of an object
@@ -86,7 +93,8 @@ Evas_Object* elm_object_part_content_get(const Evas_Object* obj,
  */
 Evas_Object* elm_object_part_content_unset(Evas_Object* obj, const char* part);
 
-//#define elm_object_content_unset(obj) elm_object_part_content_unset((obj), NULL)
+Evas_Object* elm_object_content_unset(E:Evas_Object*)(E obj)
+{   return elm_object_part_content_unset(obj, cast(char*)null); }
 
 /**
  * Set the text to read out when in accessibility mode
@@ -118,8 +126,7 @@ void elm_object_access_info_set(Evas_Object* obj, const char* txt);
  *
  * @ingroup General
  */
-Evas_Object* elm_object_name_find(const Evas_Object* obj, const char* name,
-                                        int recurse);
+Evas_Object* elm_object_name_find(const Evas_Object* obj, const char* name, int recurse);
 
 /**
  * @defgroup Styles Styles
@@ -265,6 +272,9 @@ Evas_Object* elm_object_top_widget_get(const Evas_Object* obj);
  */
 char* elm_object_widget_type_get(const Evas_Object* obj);
 
+string elmObjectWidgetTypeGet(E:Evas_Object*)(in E obj)
+{   return cast(string)elm_object_widget_type_get(obj); }
+
 /**
  * Send a signal to the widget edje object.
  *
@@ -374,7 +384,8 @@ void* elm_object_signal_callback_del(Evas_Object* obj, const char* emission,
  */
 void elm_object_event_callback_add(Evas_Object* obj, Elm_Event_Cb func,
                                     const void* data);
-
+void elmObjectEventCallbackAdd(E:Evas_Object*)(E obj, void delegate() func, in void* data)
+{   return elm_object_event_callback_add(obj, cast(Elm_Event_Cb)func.funcptr, data);    }
 /**
  * Remove an event callback from a widget.
  *
@@ -391,6 +402,5 @@ void elm_object_event_callback_add(Evas_Object* obj, Elm_Event_Cb func,
  * @return The data pointer
  * @ingroup General
  */
-void *elm_object_event_callback_del(Evas_Object* obj, Elm_Event_Cb func,
-                                    const void* data);
-}
+void *elm_object_event_callback_del(Evas_Object* obj, Elm_Event_Cb func, const void* data);
+

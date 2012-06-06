@@ -1,17 +1,18 @@
 //Compile with:
 //gcc -g table_example_01.c -o table_example_01 `pkg-config --cflags --libs elementary`
 
-#include <Elementary.h>
+import std.string;
+import Elementary;
 
-EAPI_MAIN int
-elm_main(int argc, char **argv)
+int elm_main(int argc, char **argv)
 {
-   Evas_Object *win, *bg, *label, *table;
+   Evas_Object* win, bg, label, table;
 
-   win = elm_win_add(NULL, "table", ELM_WIN_BASIC);
+   win = elm_win_add(null, "table", ELM_WIN_BASIC);
    elm_win_title_set(win, "Table");
    elm_win_autodel_set(win, EINA_TRUE);
-   elm_policy_set(ELM_POLICY_QUIT, ELM_POLICY_QUIT_LAST_WINDOW_CLOSED);
+   elm_policy_set(ELM_POLICY_QUIT, 
+           ELM_POLICY_QUIT_LAST_WINDOW_CLOSED);
 
    bg = elm_bg_add(win);
    elm_win_resize_object_add(win, bg);
@@ -50,4 +51,4 @@ elm_main(int argc, char **argv)
 
    return 0;
 }
-ELM_MAIN()
+mixin(ELM_MAIN!());

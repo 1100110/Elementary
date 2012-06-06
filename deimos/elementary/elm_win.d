@@ -89,7 +89,7 @@ module elm_win;
 
 import Evas;
 import Eina;
-import Ecore_X;
+//import Ecore_X;
 
 extern (C)  {
 /**
@@ -101,7 +101,7 @@ extern (C)  {
  *
  * Currently, only the X11 backed engines use them.
  */
-enum Elm_Win_Type
+enum    Elm_Win_Type
 {
    ELM_WIN_BASIC, /**< A normal window. Indicates a normal, top-level
                      window. Almost every window will be created with this
@@ -218,7 +218,7 @@ enum Elm_Win_Indicator_Opacity_Mode
  * When running under an Illume session, a window may send commands to the
  * Illume manager to perform different actions.
  */
-enum Elm_Illume_Command
+enum Elm_Illume_Command 
 {
    ELM_ILLUME_COMMAND_FOCUS_BACK, /**< Reverts focus to the previous window */
    ELM_ILLUME_COMMAND_FOCUS_FORWARD, /**< Sends focus to the next window in the list */
@@ -245,7 +245,7 @@ import std.string;
 Evas_Object* elm_win_add(Evas_Object* parent, const char* name,
                             Elm_Win_Type type);
 //D
-Evas_Object* elm_win_add(Evas_Object* p, string n, Elm_Win_Type t)
+Evas_Object* elmWinAdd(Evas_Object* p, string n, Elm_Win_Type t)
 {   return elm_win_add(p, toStringz(n), t); }
 /**
  * Adds a window object with standard setup
@@ -266,7 +266,7 @@ Evas_Object* elm_win_add(Evas_Object* p, string n, Elm_Win_Type t)
  */
 Evas_Object* elm_win_util_standard_add(const char* name, const char* title);
 //D
-Evas_Object* elm_win_util_standard_add(string n, string t)
+Evas_Object* elmWinUtilStandardAdd(string n, string t)
 {   return elm_win_util_standard_add(toStringz(n), toStringz(t));   }
 /**
  * Add @p subobj as a resize object of window @p obj.
@@ -360,7 +360,7 @@ void elm_win_icon_name_set(Evas_Object* obj, const char* icon_name);
  *
  * @ingroup Win
  */
-char* elm_win_icon_name_get(const Evas_Object* obj);
+char* elm_win_icon_name_get(in Evas_Object* obj);
 
 /**
  * Set the role of the window
@@ -802,7 +802,7 @@ double elm_win_aspect_get(const Evas_Object* obj);
  *
  * @ingroup Win
  */
-void                  elm_win_layer_set(Evas_Object *obj, int layer);
+void elm_win_layer_set(Evas_Object *obj, int layer);
 
 /**
  * Get the layer of the window.
@@ -814,7 +814,7 @@ void                  elm_win_layer_set(Evas_Object *obj, int layer);
  *
  * @ingroup Win
  */
-int                   elm_win_layer_get(const Evas_Object *obj);
+int elm_win_layer_get(const Evas_Object *obj);
 
 /**
  * Set the rotation of the window.
@@ -1253,7 +1253,8 @@ Eina_Bool             elm_win_socket_listen(Evas_Object *obj, const char *svcnam
  *
  * @ingroup Win
  */
-Ecore_X_Window elm_win_xwindow_get(const Evas_Object *obj);
+//TODO
+//Ecore_X_Window elm_win_xwindow_get(const Evas_Object *obj);
 
 /**
  * @}

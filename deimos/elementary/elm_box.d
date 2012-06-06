@@ -73,7 +73,7 @@ module elm_box;
 import Evas;
 import Eina;
 import Ecore;
-import Ecore_X;
+//import Ecore_X;
 
 extern (C)  {
 

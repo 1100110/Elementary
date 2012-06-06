@@ -3489,7 +3489,7 @@ void evas_event_feed_mouse_in(Evas* e, uint timestamp, const void* data);
  *
  * @ingroup Evas_Object_Group_Basic
  */
- void evas_object_show(Evas_Object* obj);
+void evas_object_show(Evas_Object* obj);
 
 /**
  * Makes the given Evas object invisible.

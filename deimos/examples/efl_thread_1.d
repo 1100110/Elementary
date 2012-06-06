@@ -1,55 +1,56 @@
+#!/usr/bin/rdmd
 //Compile with:
 //gcc -o efl_thread_1 efl_thread_1.c -g `pkg-config --cflags --libs elementary`
+//Don't listen to it, it don't know nothin..
+
 import Elementary;
-//import pthread;
+//import pthread
 
-Evas_Object* win;
-Evas_Object* rect;
+__gshared Evas_Object* win = null;
+static Evas_Object *rect = null;
 
-//pthread_t thread_id;
+static pthread_t thread_id;
 
 // BEGIN - code running in my custom pthread instance
 //
-void* my_thread_run(void* arg)
+void myThreadRun(void* arg)
 {
    double t = 0.0;
-
-   for (;;)
-     {
+    
+   //inf.
+    for (;;)
+    {
         ecore_thread_main_loop_begin(); // begin critical
-          { // indented for illustration of "critical" block
-             Evas_Coord x, y;
+        {
+            Evas_Coord x, y;
 
-             x = 200 + (200 * sin(t));
-             y = 200 + (200 * cos(t));
-             evas_object_move(rect, x - 50, y - 50);
-          }
+            x = 200 + (200 * sin(t));
+            y = 200 + (200 * cos(t));
+            evas_object_move(rect, x - 50, y - 50);
+        }
         ecore_thread_main_loop_end(); // end critical
         usleep(1000);
         t += 0.02;
      }
-   return NULL;
 }
 //
 // END - code running in my custom pthread instance
 
-static void
-my_thread_new(void)
+void myThreadNew()
 {
    pthread_attr_t attr;
 
    if (pthread_attr_init(&attr) != 0)
       perror("pthread_attr_init");
-   if (pthread_create(&thread_id, &attr, my_thread_run, NULL) != 0)
+   if (pthread_create(&thread_id, &attr, myThreadRun, null) != 0)
       perror("pthread_create");
 }
 
-EAPI_MAIN int
-elm_main(int argc, char **argv)
+int elm_main(int argc, char **argv)
 {
-   Evas_Object *o, *bg;
+   Evas_Object* o, bg;
 
-   win = elm_win_add(NULL, "efl-thread-1", ELM_WIN_BASIC);
+   win = elm_win_add(null, "efl-thread-1", ELM_WIN_BASIC);
    elm_win_title_set(win, "EFL Thread 1");
    elm_win_autodel_set(win, EINA_TRUE);
    elm_policy_set(ELM_POLICY_QUIT, ELM_POLICY_QUIT_LAST_WINDOW_CLOSED);
@@ -68,11 +69,11 @@ elm_main(int argc, char **argv)
    rect = o;
 
    // create custom thread to do some "work on the side"
-   my_thread_new();
+   myThreadNew();
 
    elm_run();
    elm_shutdown();
 
    return 0;
 }
-ELM_MAIN()
+mixin(ELM_MAIN!());
